@@ -1,6 +1,5 @@
 Sleep Tracker With Gesture Control
 
-
 Mobile app compatible with both IOS and Android made using Ionic + Angular. The gesture controls were implemented using Handtrack.js.
 
 Functionality includes:
