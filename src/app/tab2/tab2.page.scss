@@ -1,0 +1,65 @@
+ion-modal#datetime-modal {
+    --width: fit-content;
+    --min-width: 250px;
+    --height: fit-content;
+    --border-radius: 6px;
+    --box-shadow: 0 28px 48px rgba(0, 0, 0, 0.4);
+  }
+
+  .success-message {
+    color: rgb(52, 219, 52);
+    text-align: center;
+    margin-top: 20px;
+    font-weight: bold;
+  }
+  .error-message {
+    color: rgb(224, 27, 27);
+    text-align: center;
+    margin-top: 20px;
+    font-weight: bold;
+  }
+  .button-container {
+    margin-top: auto;
+    text-align: right;
+    padding: 10px;
+    color: rgb(52, 219, 52);
+    font-weight: bold;
+  }
+
+  ion-title {
+    color: rgb(200, 200, 250);
+    font-size: 20px; 
+    font-family: Arial, Helvetica, sans-serif; 
+  }
+  
+  p {
+    color: rgb(200, 200, 250);
+    font-size: 16px; 
+    font-family: Arial, Helvetica, sans-serif; 
+  }
+
+  ion-range {
+    width: 95%;
+    --bar-background: #5393cf;
+    --bar-background-active: #bde0fe;
+    --bar-height: 8px;
+    --bar-border-radius: 8px;
+    --knob-background: #e4c1c1;
+    --knob-size: 40px;
+    --pin-background: #eb9e9e;
+  }
+  .info-message{
+    color: rgb(200, 200, 250);
+    font-size: 16px; 
+    font-family: Arial, Helvetica, sans-serif; 
+    margin-top:10px;
+    text-align: center;
+  }
+  .top-info-message {
+    color: rgb(224, 252, 206);
+    font-size: 16px; 
+    font-family: Arial, Helvetica, sans-serif; 
+    margin-top:10px;
+    text-align: center;
+    font-weight: bold;
+  }

@@ -1,17 +1,49 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
     <ion-title>
-      Tab 3
+      View Logs
     </ion-title>
   </ion-toolbar>
 </ion-header>
 
-<ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">Tab 3</ion-title>
-    </ion-toolbar>
-  </ion-header>
+<ion-content>
+  <ion-segment color="tertiary" [(ngModel)] = "currentSegment" >
+    <ion-segment-button value="overnight" (click)="loadData()">
+      <ion-label>Overnight</ion-label>
+    </ion-segment-button>
+    <ion-segment-button value="daytime" (click)="loadData()">
+      <ion-label>Daytime</ion-label>
+    </ion-segment-button>
+  </ion-segment>
 
-  <app-explore-container name="Tab 3 page"></app-explore-container>
+  <div *ngIf="currentSegment === 'overnight'">
+    <ion-card *ngFor="let log of overnightLogs" color="tertiary">
+      <ion-card-header>
+        <ion-card-title>{{ log.date | date: 'longDate'}}</ion-card-title>
+      </ion-card-header>
+      <ion-card-content>
+        <p>Sleep Duration: {{ log.sleepDuration }}</p>
+      </ion-card-content>
+      <ion-button fill="clear" style="--color: red;" (click) = "deleteNightLog(log)">DELETE</ion-button>
+    </ion-card>
+
+  </div>
+
+  <div *ngIf="currentSegment === 'daytime'">
+    <ion-card *ngFor="let log of daytimeLogs" color="tertiary">
+      <ion-card-header>
+        <ion-card-title>{{ log.dateTime | date: 'short'}}</ion-card-title>
+      </ion-card-header>
+      <ion-card-content>
+        <p>Sleepiness Rating: {{ log.sleepinessLevel }}</p>
+      </ion-card-content>
+      <ion-button fill="clear" style="--color: red;" (click) = "deleteDayLog(log)">DELETE</ion-button>
+    </ion-card>
+  </div>
 </ion-content>
+<div class= "top-info-message">Handtracker Commands:</div>
+<div class= "info-message">1. Two Open Hands - Refresh Data</div>
+<div class= "info-message">2. Two Hands Pinching - Clear All Data</div>
+<ion-button expand="full" color="success" (click)="loadData()">REFRESH</ion-button>
+<ion-button expand="full" color="danger" (click)="deleteAllLogs()">CLEAR ALL</ion-button>
+<app-handtracker (onPrediction)="handleGesture($event)"></app-handtracker>

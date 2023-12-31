@@ -1,17 +1,61 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
     <ion-title>
-      Tab 1
+      Log Sleep Hours
     </ion-title>
   </ion-toolbar>
 </ion-header>
 
-<ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">Tab 1</ion-title>
-    </ion-toolbar>
-  </ion-header>
+<ion-content>
 
-  <app-explore-container name="Tab 1 page"></app-explore-container>
+  <ion-grid>
+    <ion-row>
+      <ion-col>
+        <ion-button id="sleep-time-select" color="tertiary" expand="block">SET SLEEP TIME</ion-button>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col>
+        <p *ngIf="sleepTime">Sleep Time: {{ sleepTime | date: 'shortTime' }}</p>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col>
+        <ion-button id="wakeup-time-select" color="tertiary" expand="block">SET WAKE UP TIME</ion-button>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col>
+        <p *ngIf="wakeUpTime">Wakeup Time: {{ wakeUpTime | date: 'shortTime' }}</p>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col>
+        <ion-button (click)="submitButton()" color="success" expand="block">SUBMIT</ion-button>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col>
+        <p> Sleep Duration: {{ sleepDuration }}</p>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+  <p *ngIf="sleepError" class="error-message">Input error. Try again.</p>
+  <p *ngIf="submissionSuccess" class="success-message">Sleep times logged successfully.</p>
+  <div class= "top-info-message">Handtracker Commands:</div>
+  <div class= "info-message">1. Two Closed Fists = Submit</div>
 </ion-content>
+
+
+<app-handtracker (onPrediction)="gestureOptions($event)"></app-handtracker>
+
+<ion-modal id="sleeplog-modal" trigger="sleep-time-select" >
+  <ng-template>
+    <ion-datetime presentation="date-time" [(ngModel)]="sleepTime" [showDefaultButtons]="true"[min]="minDate" [max]="maxDate"></ion-datetime>
+  </ng-template>
+</ion-modal>
+<ion-modal id="sleeplog-modal" trigger="wakeup-time-select">
+  <ng-template>
+    <ion-datetime presentation="date-time" [(ngModel)]="wakeUpTime" [showDefaultButtons]="true"[min]="minDate" [max]="maxDate"></ion-datetime>
+  </ng-template>
+</ion-modal>

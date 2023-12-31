@@ -1,17 +1,62 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
     <ion-title>
-      Tab 2
+      Daytime Sleepiness
     </ion-title>
   </ion-toolbar>
 </ion-header>
 
-<ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">Tab 2</ion-title>
-    </ion-toolbar>
-  </ion-header>
-
-  <app-explore-container name="Tab 2 page"></app-explore-container>
+<ion-content>
+  <ion-grid>
+    <ion-row>
+      <ion-col>
+        <p>How sleepy do you feel from 1 (not sleepy) </p>
+        <p>to 7 (very sleepy)?</p>
+        
+      </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col>
+          <ion-range min="1" max="7" snaps="true" ticks = "true" [(ngModel)]="sleepinessLevel"
+          labelPlacement="start" label = "1 - 7"></ion-range>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col>
+          <ion-button (click) = "setOpen(true)" color="tertiary" expand="block">SELECT TIME</ion-button>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col>
+          <p>Time selected: {{ dateTime | date: 'shortTime' }}</p>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col>
+          <ion-button expand="block" color="success" (click)="submitRating()">SUBMIT</ion-button>
+        </ion-col>
+      </ion-row>
+  </ion-grid>
+  
+  <p *ngIf="daytimeError" class="error-message">Input error. Try again.</p>
+  <p *ngIf="submissionDone" class="success-message">Sleep times logged successfully.</p>
+  <div class= "top-info-message">Handtracker Commands:</div>
+  <div class= "info-message">1. One Hand Open and One Hand Pointing - Increase Sleepiness Rating</div>
+  <div class= "info-message">2. One Hand Closed and One Hand Pointing - Decrease Sleepiness Rating</div>
+  <div class= "info-message">3. One Hand Open - Open Date Selector</div>
+  <div class= "info-message">4. One Hand Closed - Close Date Selector</div>
+  <div class= "info-message">5. Both Hands Pointing - Submit</div>
 </ion-content>
+<app-handtracker (onPrediction)="handleGesture($event)"></app-handtracker>
+<ion-modal id="datetime-modal" [backdropDismiss]="false" [isOpen]="isModalOpen">
+  <ng-template>
+    <ion-datetime presentation="date-time" [(ngModel)]="dateTime" [min]="minDate" [max]="maxDate"></ion-datetime>
+    <div class="button-container">
+      <ion-buttons slot="end">
+        <ion-button (click)="setOpen(false)">CONFIRM DATE AND TIME</ion-button>
+      </ion-buttons>
+    </div>
+  <!--trigger="date-time-select"
+  [showDefaultButtons]="true"-->
+  </ng-template>
+</ion-modal>
